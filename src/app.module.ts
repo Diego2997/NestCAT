@@ -3,6 +3,8 @@ import { CatsModule } from './cats/cats.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { BreedsModule } from './breeds/breeds.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { BreedsModule } from './breeds/breeds.module';
     }),
     CatsModule,
     BreedsModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
