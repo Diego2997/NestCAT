@@ -18,7 +18,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
 export class UsersController {
-  private logger = new Logger('UserService');
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
@@ -33,12 +32,8 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    try {
-      return this.usersService.findOne(+id);
-    } catch (error) {
-      this.handleDBErrors(error);
-    }
+  findOne(@Param('id') id: number) {
+    return this.usersService.findOne(id);
   }
 
   @Patch(':id')
@@ -49,16 +44,5 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
-  }
-
-  private handleDBErrors(error: any) {
-    if (error.code === '23505') {
-      throw new BadRequestException(error.detail);
-    }
-    this.logger.error(error);
-
-    throw new InternalServerErrorException(
-      'Unexpected error, check server logs',
-    );
   }
 }

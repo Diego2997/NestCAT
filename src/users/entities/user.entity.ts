@@ -1,4 +1,5 @@
 import { Exclude } from 'class-transformer';
+import { Role } from 'src/auth/enums/rol.enum';
 import {
   Column,
   DeleteDateColumn,
@@ -22,7 +23,7 @@ export class User {
   password: string;
 
   @Column({ default: 'user' })
-  role: string;
+  role: Role;
 
   @DeleteDateColumn()
   deletedAt: Date;

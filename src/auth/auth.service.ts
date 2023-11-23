@@ -31,18 +31,16 @@ export class AuthService {
   async login({ email, password }: LoginDto) {
     const user = await this.usersService.findOneByEmail(email);
     if (!user) {
-      throw new UnauthorizedException('Email or password is wrong');
+      throw new UnauthorizedException('Invalid credentials');
     }
 
     const isPasswordValid = await bcryptjs.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Email or password is wrong');
+      throw new UnauthorizedException('Invalid credentials');
     }
 
     const payload = { email: user.email, role: user.role };
     const token = await this.jwtService.signAsync(payload);
     return { token, email, message: 'Bienvenido', username: user.name };
   }
-
-  async profile() {}
 }

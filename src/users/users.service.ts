@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,6 +12,7 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
+  private logger = new Logger('UserService');
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
@@ -33,5 +39,15 @@ export class UsersService {
 
   remove(id: number) {
     return `This action removes a #${id} user`;
+  }
+  private handleDBErrors(error: any) {
+    if (error.code === '23505') {
+      throw new BadRequestException(error.detail);
+    }
+    this.logger.error(error);
+
+    throw new InternalServerErrorException(
+      'Unexpected error, check server logs',
+    );
   }
 }
