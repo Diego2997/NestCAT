@@ -8,6 +8,7 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcryptjs from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
+import { UserActiveI } from '../../dist/auth/interfaces/user-active.interface';
 
 @Injectable()
 export class AuthService {
@@ -22,11 +23,12 @@ export class AuthService {
       throw new BadRequestException('User already exists');
     }
 
-    return await this.usersService.create({
+    await this.usersService.create({
       name,
       email,
       password: await bcryptjs.hash(password, 10),
     });
+    return { name, email };
   }
   async login({ email, password }: LoginDto) {
     const user = await this.usersService.findOneByEmail(email);
@@ -41,6 +43,17 @@ export class AuthService {
 
     const payload = { email: user.email, role: user.role };
     const token = await this.jwtService.signAsync(payload);
-    return { token, email, message: 'Bienvenido', username: user.name };
+    return {
+      token,
+      email,
+      message: 'Bienvenido',
+      username: user.name,
+      role: user.role,
+    };
+  }
+
+  async profile({ email, role }: UserActiveI) {
+    const user = await this.usersService.findOneByEmail(email);
+    return { name: user.name, email: user.email, role: user.role };
   }
 }
