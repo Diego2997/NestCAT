@@ -8,7 +8,7 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcryptjs from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
-import { UserActiveI } from '../../dist/auth/interfaces/user-active.interface';
+import { UserActiveInterface } from './interfaces/user-active.interface';
 
 @Injectable()
 export class AuthService {
@@ -52,7 +52,7 @@ export class AuthService {
     };
   }
 
-  async profile({ email, role }: UserActiveI) {
+  async profile({ email, role }: UserActiveInterface) {
     const user = await this.usersService.findOneByEmail(email);
     return { name: user.name, email: user.email, role: user.role };
   }

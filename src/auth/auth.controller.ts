@@ -2,19 +2,13 @@ import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import { Request } from 'express';
 import { Role } from './enums/rol.enum';
 import { Auth } from './decorators/auth.decorator';
 import { ActiveUser } from './decorators/active-user.decorator';
-import { UserActiveI } from '../../dist/auth/interfaces/user-active.interface';
+import { UserActiveInterface } from './interfaces/user-active.interface';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-interface RequestWithUser extends Request {
-  user: {
-    email: string;
-    role: string;
-  };
-}
-
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -36,8 +30,9 @@ export class AuthController {
   // }
 
   @Auth(Role.USER)
+  @ApiBearerAuth()
   @Get('profile')
-  profile(@ActiveUser() user: UserActiveI) {
+  profile(@ActiveUser() user: UserActiveInterface) {
     return this.authService.profile(user);
   }
 }

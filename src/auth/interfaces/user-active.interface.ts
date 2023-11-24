@@ -1,4 +1,4 @@
-export interface UserActiveI {
+export interface UserActiveInterface {
   email: string;
   role: string;
 }
