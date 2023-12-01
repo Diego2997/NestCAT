@@ -11,6 +11,9 @@ export class UserRepository implements IUserRepository {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
+  async findAll(): Promise<User[]> {
+    return await this.userRepository.find({});
+  }
   async create(createUserDto: CreateUserDto): Promise<User> {
     return await this.userRepository.save(createUserDto);
   }

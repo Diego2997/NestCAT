@@ -23,9 +23,9 @@ export class UsersService {
     return this.userRepository.findOneByEmail(email);
   }
 
-  // async findAll() {
-  //   return await this.userRepository.find();
-  // }
+  async findAll() {
+    return await this.userRepository.findAll();
+  }
 
   findOne(id: number) {
     return `This action returns a #${id} user`;
