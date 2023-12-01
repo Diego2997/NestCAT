@@ -1,5 +1,5 @@
 import { Breed } from '../../breeds/entities/breed.entity';
-import { User } from '../../users/entities/user.entity';
+import { User } from '../../users/domain/model/user.entity';
 import {
   Column,
   DeleteDateColumn,

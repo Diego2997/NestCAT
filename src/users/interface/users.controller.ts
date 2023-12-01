@@ -12,9 +12,9 @@ import {
   Logger,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UsersService } from '../application/services/users.service';
+import { CreateUserDto } from '../application/dto/create-user.dto';
+import { UpdateUserDto } from '../application/dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Role } from 'src/auth/enums/rol.enum';
@@ -30,11 +30,11 @@ export class UsersController {
   }
 
   // @Auth(Role.ADMIN)
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Get()
-  findAll() {
-    return this.usersService.findAll();
-  }
+  // @UseInterceptors(ClassSerializerInterceptor)
+  // @Get()
+  // findAll() {
+  //   return this.usersService.findAll();
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: number) {

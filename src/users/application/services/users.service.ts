@@ -4,30 +4,28 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
+import { User } from '../../domain/model/user.entity';
+import { UserRepository } from 'src/users/infrastructure/database/user.repository';
 
 @Injectable()
 export class UsersService {
   private logger = new Logger('UserService');
-  constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
-  ) {}
+  constructor(private readonly userRepository: UserRepository) {}
   create(createUserDto: CreateUserDto) {
-    return this.userRepository.save(createUserDto);
+    return this.userRepository.create(createUserDto);
   }
 
   findOneByEmail(email: string) {
-    return this.userRepository.findOneBy({ email });
+    return this.userRepository.findOneByEmail(email);
   }
 
-  async findAll() {
-    return await this.userRepository.find();
-  }
+  // async findAll() {
+  //   return await this.userRepository.find();
+  // }
 
   findOne(id: number) {
     return `This action returns a #${id} user`;
