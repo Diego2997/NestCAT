@@ -1,17 +1,10 @@
 import { Exclude } from 'class-transformer';
 import { Role } from '../../../auth/enums/rol.enum';
-import {
-  Column,
-  DeleteDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
+import { BaseEntity } from 'src/common/domain/base.entity';
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends BaseEntity {
   @Column()
   name: string;
 
@@ -24,7 +17,4 @@ export class User {
 
   @Column({ type: 'enum', default: Role.USER, enum: Role })
   role: Role;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
 }
