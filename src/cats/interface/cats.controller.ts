@@ -7,9 +7,9 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { CatsService } from './cats.service';
-import { CreateCatDto } from './dto/create-cat.dto';
-import { UpdateCatDto } from './dto/update-cat.dto';
+import { CatsService } from '../application/services/cats.service';
+import { CreateCatDto } from '../application/dto/create-cat.dto';
+import { UpdateCatDto } from '../application/dto/update-cat.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Role } from 'src/auth/enums/rol.enum';
 import { ActiveUser } from 'src/auth/decorators/active-user.decorator';

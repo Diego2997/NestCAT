@@ -1,4 +1,4 @@
-import { Cat } from 'src/cats/entities/cat.entity';
+import { Cat } from 'src/cats/domain/model/cat.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()

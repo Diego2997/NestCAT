@@ -1,19 +1,20 @@
 import {
-  BadRequestException,
   Injectable,
+  BadRequestException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { CreateCatDto } from './dto/create-cat.dto';
-import { UpdateCatDto } from './dto/update-cat.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Cat } from './entities/cat.entity';
-import { Repository } from 'typeorm';
-import { Breed } from 'src/breeds/entities/breed.entity';
 import { UserActiveInterface } from 'src/auth/interfaces/user-active.interface';
+import { CreateCatDto } from 'src/cats/application/dto/create-cat.dto';
+import { UpdateCatDto } from 'src/cats/application/dto/update-cat.dto';
+import { Cat } from 'src/cats/domain/model/cat.entity';
+import { ICatRepository } from 'src/cats/domain/repository/cat.repository.interface';
+import { Repository, UpdateResult } from 'typeorm';
+import { Breed } from 'src/breeds/entities/breed.entity';
 import { Role } from 'src/auth/enums/rol.enum';
 
 @Injectable()
-export class CatsService {
+export class CatRepository implements ICatRepository {
   constructor(
     @InjectRepository(Cat)
     private readonly catRepository: Repository<Cat>,
@@ -22,11 +23,11 @@ export class CatsService {
     private readonly breedRepository: Repository<Breed>,
   ) {}
 
-  async create(createCatDto: CreateCatDto, user: UserActiveInterface) {
+  async create(
+    createCatDto: CreateCatDto,
+    user: UserActiveInterface,
+  ): Promise<Cat> {
     const breed = await this.validateBreed(createCatDto.breed);
-    // const cat = this.catRepository.create(createCatDto);
-
-    // return await this.catRepository.save(cat);
     return await this.catRepository.save({
       ...createCatDto,
       breed,
@@ -34,21 +35,21 @@ export class CatsService {
     });
   }
 
-  async findAll(user: UserActiveInterface) {
+  async findAll(user: UserActiveInterface): Promise<Cat[]> {
     if (user.role === Role.ADMIN) {
       return await this.catRepository.find({});
     }
     return await this.catRepository.find({ where: { userEmail: user.email } });
   }
 
-  async findOne(id: number, user: UserActiveInterface) {
+  async findOne(id: number, user: UserActiveInterface): Promise<Cat> {
     const cat = await this.catRepository.findOneBy({ id });
 
     if (!cat) {
       throw new BadRequestException('Cat not found');
     }
 
-    this.validateOwnerShip(cat, user);
+    this.validateOwnership(cat, user);
     return cat;
   }
 
@@ -56,7 +57,7 @@ export class CatsService {
     id: number,
     updateCatDto: UpdateCatDto,
     user: UserActiveInterface,
-  ) {
+  ): Promise<UpdateResult> {
     await this.findOne(id, user);
 
     return await this.catRepository.update(id, {
@@ -68,20 +69,18 @@ export class CatsService {
     });
   }
 
-  async remove(id: number, user: UserActiveInterface) {
+  async remove(id: number, user: UserActiveInterface): Promise<UpdateResult> {
     await this.findOne(id, user);
     return await this.catRepository.softDelete({ id });
-    //Con el soft delete sigue existiendo en la base de datos pero no lo devuelve en un find (eliminacion logica), se le pasa el id
-    //Con el remove se le pasa la instancia
   }
 
-  private validateOwnerShip(cat: Cat, user: UserActiveInterface) {
+  private validateOwnership(cat: Cat, user: UserActiveInterface) {
     if (user.role !== Role.ADMIN && cat.userEmail !== user.email) {
       throw new UnauthorizedException();
     }
   }
 
-  private async validateBreed(breed: string) {
+  private async validateBreed(breed: string): Promise<Breed> {
     const breedEntity = await this.breedRepository.findOneBy({ name: breed });
 
     if (!breedEntity) {
