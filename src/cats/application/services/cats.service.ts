@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCatDto } from '../dto/create-cat.dto';
 import { UpdateCatDto } from '../dto/update-cat.dto';
-import { UserActiveInterface } from 'src/auth/interfaces/user-active.interface';
+import { UserActiveInterface } from 'src/auth/application/interfaces/user-active.interface';
 import { CatRepository } from 'src/cats/infrastructure/database/cat.repository';
 
 @Injectable()

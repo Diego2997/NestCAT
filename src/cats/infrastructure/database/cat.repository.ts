@@ -4,14 +4,14 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserActiveInterface } from 'src/auth/interfaces/user-active.interface';
+import { UserActiveInterface } from 'src/auth/application/interfaces/user-active.interface';
 import { CreateCatDto } from 'src/cats/application/dto/create-cat.dto';
 import { UpdateCatDto } from 'src/cats/application/dto/update-cat.dto';
 import { Cat } from 'src/cats/domain/model/cat.entity';
 import { ICatRepository } from 'src/cats/domain/repository/cat.repository.interface';
 import { Repository, UpdateResult } from 'typeorm';
 import { Breed } from 'src/breeds/domain/model/breed.entity';
-import { Role } from 'src/auth/enums/rol.enum';
+import { Role } from 'src/auth/application/enums/rol.enum';
 
 @Injectable()
 export class CatRepository implements ICatRepository {

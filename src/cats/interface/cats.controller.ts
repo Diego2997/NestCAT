@@ -10,10 +10,10 @@ import {
 import { CatsService } from '../application/services/cats.service';
 import { CreateCatDto } from '../application/dto/create-cat.dto';
 import { UpdateCatDto } from '../application/dto/update-cat.dto';
-import { Auth } from 'src/auth/decorators/auth.decorator';
-import { Role } from 'src/auth/enums/rol.enum';
-import { ActiveUser } from 'src/auth/decorators/active-user.decorator';
-import { UserActiveInterface } from 'src/auth/interfaces/user-active.interface';
+import { Auth } from 'src/auth/application/decorators/auth.decorator';
+import { Role } from 'src/auth/application/enums/rol.enum';
+import { ActiveUser } from 'src/auth/application/decorators/active-user.decorator';
+import { UserActiveInterface } from 'src/auth/application/interfaces/user-active.interface';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('cats')

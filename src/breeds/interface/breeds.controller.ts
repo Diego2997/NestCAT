@@ -10,8 +10,8 @@ import {
 import { BreedsService } from '../application/services/breeds.service';
 import { CreateBreedDto } from '../application/dto/create-breed.dto';
 import { UpdateBreedDto } from '../application/dto/update-breed.dto';
-import { Auth } from 'src/auth/decorators/auth.decorator';
-import { Role } from 'src/auth/enums/rol.enum';
+import { Auth } from 'src/auth/application/decorators/auth.decorator';
+import { Role } from 'src/auth/application/enums/rol.enum';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('breeds')

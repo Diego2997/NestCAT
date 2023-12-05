@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
-import { Role } from './enums/rol.enum';
-import { Auth } from './decorators/auth.decorator';
-import { ActiveUser } from './decorators/active-user.decorator';
-import { UserActiveInterface } from './interfaces/user-active.interface';
+import { AuthService } from '../application/services/auth.service';
+import { RegisterDto } from '../application/dto/register.dto';
+import { LoginDto } from '../application/dto/login.dto';
+import { Role } from '../application/enums/rol.enum';
+import { Auth } from '../application/decorators/auth.decorator';
+import { ActiveUser } from '../application/decorators/active-user.decorator';
+import { UserActiveInterface } from '../application/interfaces/user-active.interface';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('auth')

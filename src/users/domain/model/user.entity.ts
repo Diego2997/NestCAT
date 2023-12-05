@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer';
-import { Role } from '../../../auth/enums/rol.enum';
+import { Role } from '../../../auth/application/enums/rol.enum';
 import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
 import { BaseEntity } from 'src/common/domain/base.entity';
 

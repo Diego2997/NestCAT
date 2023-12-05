@@ -1,4 +1,4 @@
-import { UserActiveInterface } from 'src/auth/interfaces/user-active.interface';
+import { UserActiveInterface } from 'src/auth/application/interfaces/user-active.interface';
 import { CreateCatDto } from 'src/cats/application/dto/create-cat.dto';
 import { Cat } from '../model/cat.entity';
 import { UpdateCatDto } from 'src/cats/application/dto/update-cat.dto';
