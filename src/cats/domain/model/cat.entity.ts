@@ -1,4 +1,4 @@
-import { Breed } from '../../../breeds/entities/breed.entity';
+import { Breed } from '../../../breeds/domain/model/breed.entity';
 import { User } from '../../../users/domain/model/user.entity';
 import {
   Column,

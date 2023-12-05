@@ -10,7 +10,7 @@ import { UpdateCatDto } from 'src/cats/application/dto/update-cat.dto';
 import { Cat } from 'src/cats/domain/model/cat.entity';
 import { ICatRepository } from 'src/cats/domain/repository/cat.repository.interface';
 import { Repository, UpdateResult } from 'typeorm';
-import { Breed } from 'src/breeds/entities/breed.entity';
+import { Breed } from 'src/breeds/domain/model/breed.entity';
 import { Role } from 'src/auth/enums/rol.enum';
 
 @Injectable()

@@ -3,7 +3,7 @@ import { CatsService } from './application/services/cats.service';
 import { CatsController } from './interface/cats.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cat } from './domain/model/cat.entity';
-import { Breed } from 'src/breeds/entities/breed.entity';
+import { Breed } from 'src/breeds/domain/model/breed.entity';
 import { CatRepository } from './infrastructure/database/cat.repository';
 
 @Module({
